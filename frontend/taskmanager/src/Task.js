@@ -22,4 +22,3 @@ function Task({ task, onDelete, onUpdate }) {
 }
 
 export default Task;
-

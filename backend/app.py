@@ -18,19 +18,18 @@ def save_tasks(tasks_data):
     with open(TASKS_FILE, 'w') as f:
         json.dump(tasks_data, f, indent=2)
 
+def get_next_id(tasks):
+    return max([t['id'] for t in tasks], default=0) + 1
+
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
-    tasks_data = load_tasks()
-    return jsonify(tasks_data)
+    return jsonify(load_tasks())
 
 @app.route('/api/tasks', methods=['POST'])
 def create_task():
     tasks_data = load_tasks()
     new_task = request.json
-    if tasks_data['tasks']:
-        new_task['id'] = max(task['id'] for task in tasks_data['tasks']) + 1
-    else:
-        new_task['id'] = 1
+    new_task['id'] = get_next_id(tasks_data['tasks'])
     tasks_data['tasks'].append(new_task)
     save_tasks(tasks_data)
     return jsonify(new_task), 201
@@ -54,4 +53,3 @@ def delete_task(task_id):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-

@@ -9,21 +9,16 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    console.log('API URL:', API_URL);
     fetchTasks();
   }, []);
 
   const fetchTasks = async () => {
     try {
       const response = await fetch(`${API_URL}/tasks`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
       const data = await response.json();
       setTasks(data.tasks || []);
     } catch (error) {
-      console.error('Error fetching tasks:', error);
-      alert('Failed to fetch tasks. Make sure backend is running on http://localhost:5000');
+      console.error('Error:', error);
     }
   };
 
@@ -31,19 +26,13 @@ function App() {
     try {
       const response = await fetch(`${API_URL}/tasks`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(taskData),
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
       const newTask = await response.json();
       setTasks([...tasks, newTask]);
     } catch (error) {
-      console.error('Error creating task:', error);
-      alert('Failed to create task: ' + error.message);
+      console.error('Error:', error);
     }
   };
 
@@ -51,26 +40,22 @@ function App() {
     try {
       const response = await fetch(`${API_URL}/tasks/${taskId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedTask),
       });
       const updated = await response.json();
       setTasks(tasks.map(t => t.id === taskId ? updated : t));
     } catch (error) {
-      console.error('Error updating task:', error);
+      console.error('Error:', error);
     }
   };
 
   const handleDeleteTask = async (taskId) => {
     try {
-      await fetch(`${API_URL}/tasks/${taskId}`, {
-        method: 'DELETE',
-      });
+      await fetch(`${API_URL}/tasks/${taskId}`, { method: 'DELETE' });
       setTasks(tasks.filter(t => t.id !== taskId));
     } catch (error) {
-      console.error('Error deleting task:', error);
+      console.error('Error:', error);
     }
   };
 

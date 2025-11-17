@@ -20,4 +20,3 @@ function Column({ title, tasks, onDelete, onUpdate }) {
 }
 
 export default Column;
-
