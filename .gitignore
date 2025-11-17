@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp
+.pnp.js
+
+# React
+frontend/taskmanager/build/
+frontend/taskmanager/.env.local
+frontend/taskmanager/.env.development.local
+frontend/taskmanager/.env.test.local
+frontend/taskmanager/.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+.dockerignore
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# OS
+Thumbs.db
+
